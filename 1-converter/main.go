@@ -7,7 +7,7 @@ func main() {
 
 }
 func scanNumber(number *float64) {
-	fmt.Scan(&number)
+	fmt.Scan(number)
 }
 func calculate(num float64, currency1, currency2 string){
 
