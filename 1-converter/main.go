@@ -1,91 +1,40 @@
 package main
 
 import ( 
-	"errors"
 	"fmt" 
 )
-func main() {
-	const USDinEUR float64 = 0.8497
-	const USDinRUB float64 = 75.22
-	const EURinRUB float64 = USDinRUB / USDinEUR
-	
-	currency := inputCurrency()
-	value := inputValue()
-	goalCurency, err := inputGoalCurrency(currency)
-	if err != nil {
+const USDinEUR float64 = 0.8497
+const USDinRUB float64 = 75.22
+const EURinRUB float64 = USDinRUB / USDinEUR
 
+func main() {
+	currency, err := inputCurrency()
+	if err != nil {
+		fmt.Println(err)
+		currency, _ = inputCurrency()
 	}
-	fmt.Println(currency, value, goalCurency)
+
+	fmt.Println(currency)
+	// вызов функции ввода кол-ва валюты
+
+	// вызов функции ввода целевой валюты
+	
+
+	// вызов функции для расчета
 }
-func inputCurrency() string {
+
+// пример как надо сделать
+func inputCurrency() (string, error) {
 	fmt.Println("Введите исходную валюту: RUB, EUR, USD")
 	var currency string
 	fmt.Scan(&currency)
 	if currency != "RUB" && currency != "EUR" && currency != "USD" {
-		fmt.Println("Ошибка ввода валюты")
-		return inputCurrency()
+		return "", fmt.Errorf("Ошибка ввода валюты")
 	}
-	return currency
+	return currency, nil
 }
 
-func inputGoalCurrency(currency string) (string, error) {
-	var goalCurrency string
+func inputValue() (float64, error) {
 
-	if currency == "RUB" {
-		fmt.Println("Введите целевую валюту: EUR, USD")
-	} else if currency == "EUR" {
-		fmt.Println("Введите целевую валюту: RUB, USD")
-	} else if currency == "USD" {
-		fmt.Println("Введите целевую валюту: EUR, RUB")
-	} else {
-		fmt.Println("Ошибка: Не существующая валюта")
-	}
-	fmt.Scan(&goalCurrency)
-	if currency == goalCurrency {
-		fmt.Println("Ошибка: Валюты одинаковые")
-		return inputGoalCurrency(currency)
-	} 
-	return goalCurrency
+	return 0, nil
 }
-func inputValue() float64 {
-	var value float64
-	fmt.Println("Введите колличество валюты")
-	fmt.Scan(&value)
-	return value
-}
-
-
-
-
-	
-func scanNumber(number *float64) {
-	fmt.Scan(number)
-}
-func calculate(num float64, currency1, currency2 string){
-if currency1 == "RUB" && currency2 == "EUR" {
-	result := num / EURinRUB
-} else if currency1 == "EUR" && currency2 == "RUB" {
-	result := num * EURinRUB 
-} else if currency1 == "EUR" && currency2 == "USD" {
-	result := num / USDinEUR
-} else if currency1 == "USD" && currency2 == "RUB" {
-	result := num * USDinRUB
-} else if currency1 == "RUB" && currency2 == "USD"{
-	result := num / USDinRUB 
-} else if currency1 == "USD" && currency2 == "EUR" {
-	result := num * USDinEUR
-}
-fmt.Println("Ваша конвертация:", result)
-}
-
-
-	// if currency != "RUB" {
-	// 	fmt.Println("Ошибка ввода валюты")
-	// 	return inputCurrency1()
-	// } else if currency != "EUR"{
-	// 	fmt.Println("Ошибка ввода валюты")
-	// 	return inputCurrency1()
-	// } else if currency != "USD" {
-	// 	fmt.Println("Ошибка ввода валюты")
-	// 	return inputCurrency1()
-	// }
