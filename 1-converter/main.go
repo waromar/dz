@@ -1,15 +1,20 @@
 package main
+
 import ( 
+	"errors"
 	"fmt" 
 )
 func main() {
 	const USDinEUR float64 = 0.8497
 	const USDinRUB float64 = 75.22
-	const EURinRUB float64 = USDinEUR * USDinRUB
+	const EURinRUB float64 = USDinRUB / USDinEUR
 	
 	currency := inputCurrency()
 	value := inputValue()
-	goalCurency := inputGoalCurrency(currency)
+	goalCurency, err := inputGoalCurrency(currency)
+	if err != nil {
+
+	}
 	fmt.Println(currency, value, goalCurency)
 }
 func inputCurrency() string {
@@ -23,7 +28,7 @@ func inputCurrency() string {
 	return currency
 }
 
-func inputGoalCurrency(currency string) string {
+func inputGoalCurrency(currency string) (string, error) {
 	var goalCurrency string
 
 	if currency == "RUB" {
@@ -53,13 +58,25 @@ func inputValue() float64 {
 
 
 	
-//func scanNumber(number *float64) {
-//	fmt.Scan(number)
-//}
-//func calculate(num float64, currency1, currency2 string){
-
-//}
-
+func scanNumber(number *float64) {
+	fmt.Scan(number)
+}
+func calculate(num float64, currency1, currency2 string){
+if currency1 == "RUB" && currency2 == "EUR" {
+	result := num / EURinRUB
+} else if currency1 == "EUR" && currency2 == "RUB" {
+	result := num * EURinRUB 
+} else if currency1 == "EUR" && currency2 == "USD" {
+	result := num / USDinEUR
+} else if currency1 == "USD" && currency2 == "RUB" {
+	result := num * USDinRUB
+} else if currency1 == "RUB" && currency2 == "USD"{
+	result := num / USDinRUB 
+} else if currency1 == "USD" && currency2 == "EUR" {
+	result := num * USDinEUR
+}
+fmt.Println("Ваша конвертация:", result)
+}
 
 
 	// if currency != "RUB" {
