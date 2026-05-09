@@ -13,16 +13,29 @@ func main() {
 		fmt.Println(err)
 		currency, _ = inputCurrency()
 	}
-
 	fmt.Println(currency)
+	value, err := inputValue()
+	if err != nil {
+		fmt.Println(err)
+		value, _ = inputValue()
+	}
+	fmt.Println(value)
 	// вызов функции ввода кол-ва валюты
-
 	// вызов функции ввода целевой валюты
 	
-
 	// вызов функции для расчета
 }
-
+func inputValue() (float64, error) {
+fmt.Println("Введите количество валюты:")
+var value float64
+fmt.Scan(&value)
+if value < 0 {
+	return 0, fmt.Errorf("Колличество валюты отрицательное")
+} else {
+	return 0, fmt.Errorf("Некорректный ввод")
+}
+	return 0, nil
+}
 // пример как надо сделать
 func inputCurrency() (string, error) {
 	fmt.Println("Введите исходную валюту: RUB, EUR, USD")
@@ -34,7 +47,3 @@ func inputCurrency() (string, error) {
 	return currency, nil
 }
 
-func inputValue() (float64, error) {
-
-	return 0, nil
-}
