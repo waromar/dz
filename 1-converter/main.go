@@ -25,7 +25,7 @@ func main() {
 	goalCurrency, err := inputGoalCurrency(currency)
 	if err != nil {
 		fmt.Println(err)
-		goalCurrency,_ = inputGoalCurrency()
+		goalCurrency,_ = inputGoalCurrency(currency)
 	}
 	// вызов функции для расчета
 	fmt.Println(currency,value,goalCurrency)
