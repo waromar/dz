@@ -3,12 +3,14 @@ package main
 import (
 	"fmt"
 )
+
 const RUBinEUR float64 = USDinEUR / USDinRUB
 const EURinUSD float64 = 1 / USDinEUR
 const USDinEUR float64 = 0.8497
 const USDinRUB float64 = 75.22
 const EURinRUB float64 = USDinRUB / USDinEUR
 const RUBinUSD float64 = 1 / USDinRUB
+
 func main() {
 	// вызов функции ввода валюты
 	currency, err := inputCurrency()
@@ -26,11 +28,11 @@ func main() {
 	goalCurrency, err := inputGoalCurrency(currency)
 	if err != nil {
 		fmt.Println(err)
-		goalCurrency,_ = inputGoalCurrency(currency)
+		goalCurrency, _ = inputGoalCurrency(currency)
 	}
 	// вызов функции для расчета
-	sum := calculate(value, currency, goalCurrency)
-	fmt.Println("Вывод:", sum)
+	result := calculate(value,currency,goalCurrency)
+	fmt.Println("Вывод:", result, goalCurrency)
 }
 func inputValue() (float64, error) {
 	fmt.Println("Введите количество валюты:")
@@ -39,7 +41,7 @@ func inputValue() (float64, error) {
 	if err != nil {
 		return 0, fmt.Errorf("Вводите цифры")
 	}
-	if value < 0 {
+	if value <= 0 {
 		return 0, fmt.Errorf("Колличество валюты отрицательное")
 	}
 	return value, nil
@@ -49,64 +51,55 @@ func inputValue() (float64, error) {
 func inputCurrency() (string, error) {
 	fmt.Println("Введите исходную валюту: RUB, EUR, USD")
 	var currency string
-	fmt.Scan(&currency)
-	if currency != "RUB" && currency != "EUR" && currency != "USD" {
+	_, err := fmt.Scan(&currency)
+	if err != nil {
 		return "", fmt.Errorf("Ошибка ввода валюты")
 	}
 	return currency, nil
+
 }
 func inputGoalCurrency(currency string) (string, error) {
-	var goalCurrency string
-	
 	switch currency {
 	case "RUB":
-		fmt.Println("Введите целевую валюту: EUR, USD")
-		_, err := fmt.Scan(&goalCurrency)
-		if err != nil {
-			return "", fmt.Errorf("Ошибка валюты")
-		}
-		if goalCurrency != "EUR" && goalCurrency != "USD" {
-			return "", fmt.Errorf("Введена бурда")
-		 }
-
+		return selectGoalCurrency("USD", "EUR")
 	case "EUR":
-		fmt.Println("Введите целевую валюту: RUB, USD")
-		_, err := fmt.Scan(&goalCurrency)
-		if err != nil {
-			return "", fmt.Errorf("Ошибка валюты")
-		}
-		if goalCurrency != "RUB" && goalCurrency != "USD" {
-			return "", fmt.Errorf("Введена бурда")
-		}
+		return selectGoalCurrency("RUB", "USD")
 	case "USD":
-		fmt.Println("Введите целевую валюту: RUB, EUR")
+		return selectGoalCurrency("RUB", "EUR")
+	default: 
+		return "", fmt.Errorf("Неизвестная валюта")
+	}
+}
+
+func selectGoalCurrency(currency1, currency2 string) (string, error) {
+		var goalCurrency string
+		fmt.Printf("Введите целевую валюту: %v, %v\n", currency1, currency2)
 		_, err := fmt.Scan(&goalCurrency)
 		if err != nil {
 			return "", fmt.Errorf("Ошибка валюты")
-			
 		}
-		if goalCurrency != "RUB" && goalCurrency != "EUR" {
-			return "", fmt.Errorf("Введена бурда")
+		if goalCurrency != currency1 && goalCurrency != currency2 {
+			return "", fmt.Errorf("Введена бурмалда")
 		}
+		return goalCurrency, nil
+}
+
+
+func calculate(value float64, currency, goalCurrency string) float64 {
+	switch {
+	case currency == "RUB" && goalCurrency == "EUR":
+		return value * RUBinEUR
+	case currency == "RUB" && goalCurrency == "USD":
+		return value * RUBinUSD
+	case currency == "USD" && goalCurrency == "EUR":
+		return value * USDinEUR
+	case currency == "USD" && goalCurrency == "RUB":
+		return value * USDinRUB
+	case currency == "EUR" && goalCurrency == "USD":
+		return value * EURinUSD
+	case currency == "EUR" && goalCurrency == "RUB":
+		return value * EURinRUB
+	default:
+		return 0
 	}
-
-
-	return goalCurrency, nil
 }
-func calculate(value float64, currency string, goalCurrency string) float64 {
-if currency == "RUB" && goalCurrency == "EUR"	{
- return value * RUBinEUR
-} else if currency == "USD" && goalCurrency == "EUR" {
- return value * USDinEUR
-} else if currency == "RUB" && goalCurrency == "USD" {
- return value * RUBinUSD
-} else if currency == "USD" && goalCurrency == "RUB" {
- return value * USDinRUB 
-} else if currency == "EUR" && goalCurrency == "RUB" {
- return value * EURinRUB
-} else if currency == "EUR" && goalCurrency == "USD" {
- return value * EURinUSD
-} 
-return value
-}
-
