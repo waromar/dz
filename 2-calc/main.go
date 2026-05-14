@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"strconv"
+	"strings"
 )
 
 func main() {
@@ -24,21 +26,26 @@ func main() {
 	}
 }
 
-func scanValue() float64 {
-	var value float64
-	fmt.Println("Введите число (0 для выхода)")
-	fmt.Scan(&value)
-	return value
-}
+// func scanValue() float64 {
+// 	var value float64
+// 	fmt.Println("Введите число (0 для выхода)")
+// 	fmt.Scan(&value)
+// 	return value
+// }
 func scanOperations() []float64 {
 	operations := []float64{}
-		for {
-			value := scanValue()
-			if value == 0 {
-				break
-			}
-			operations = append(operations, value)
-		}
+	var value string
+		fmt.Scan(&value)
+	operationsStr := strings.Split(value, ",")
+
+for _, elem := range operationsStr {
+
+	operation, err := strconv.ParseFloat(elem, 64)
+	if err != nil {
+		fmt.Println(err)
+	}
+	operations = append(operations, operation)
+}
 return operations
 
 }
