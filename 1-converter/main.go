@@ -30,8 +30,9 @@ func main() {
 		fmt.Println(err)
 		goalCurrency, _ = inputGoalCurrency(currency)
 	}
+	
 	// вызов функции для расчета
-	result := calculate(value,currency,goalCurrency)
+	result := calculate(value, currency, goalCurrency)
 	fmt.Println("Вывод:", result, goalCurrency)
 }
 func inputValue() (float64, error) {
@@ -41,7 +42,7 @@ func inputValue() (float64, error) {
 	if err != nil {
 		return 0, fmt.Errorf("Вводите цифры")
 	}
-	if value <= 0 {
+	if value < 0 {
 		return 0, fmt.Errorf("Колличество валюты отрицательное")
 	}
 	return value, nil
@@ -49,39 +50,41 @@ func inputValue() (float64, error) {
 
 // пример как надо сделать
 func inputCurrency() (string, error) {
-	fmt.Println("Введите исходную валюту: RUB, EUR, USD")
 	var currency string
-	_, err := fmt.Scan(&currency)
-	if err != nil {
-		return "", fmt.Errorf("Ошибка ввода валюты")
-	}
-	return currency, nil
+	fmt.Println("Введите исходную валюту: RUB, EUR, USD")
 
+	_, err := fmt.Scan(&currency) 
+	if err != nil{
+	return "" ,fmt.Errorf("Ошибка ввода валюты") 
+}
+return currency, nil
 }
 func inputGoalCurrency(currency string) (string, error) {
 	switch currency {
 	case "RUB":
-		return selectGoalCurrency("USD", "EUR")
-	case "EUR":
-		return selectGoalCurrency("RUB", "USD")
+		return selectGoalCurrency("EUR", "USD")
 	case "USD":
 		return selectGoalCurrency("RUB", "EUR")
+	case "EUR":
+		return selectGoalCurrency("RUB", "USD")
 	default: 
-		return "", fmt.Errorf("Неизвестная валюта")
+		return "", fmt.Errorf("Неизвестная бурмалда")
 	}
+	
+
 }
 
 func selectGoalCurrency(currency1, currency2 string) (string, error) {
-		var goalCurrency string
+	var goalCurrency string
 		fmt.Printf("Введите целевую валюту: %v, %v\n", currency1, currency2)
 		_, err := fmt.Scan(&goalCurrency)
 		if err != nil {
-			return "", fmt.Errorf("Ошибка валюты")
+			return "", fmt.Errorf("Неизвестная валюта")
 		}
 		if goalCurrency != currency1 && goalCurrency != currency2 {
-			return "", fmt.Errorf("Введена бурмалда")
+			return "", 	fmt.Errorf("Введена бурмалда")
 		}
-		return goalCurrency, nil
+	return goalCurrency, nil
 }
 
 
