@@ -66,7 +66,7 @@ sortedOperations := sortSlice(operations)
 
 // выполнить приказ 66
 if len(sortedOperations) % 2 == 0 {
-	return (sortedOperations[len(sortedOperations)/2 - 1] + sortedOperations[len(sortedOperations)/2 + 1]) / 2
+	return (sortedOperations[len(sortedOperations)/2 - 1] + sortedOperations[len(sortedOperations)/2]) / 2
 } else {
 	return sortedOperations[len(sortedOperations)/ 2]
 }
