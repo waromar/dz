@@ -32,7 +32,7 @@ func main() {
 		goalCurrency, _ = inputGoalCurrency(currency)
 	}
 	// вызов функции для расчета
-	result := calculate(rates,value,currency,goalCurrency)
+	result := calculate(&rates,value,currency,goalCurrency)
 	fmt.Println("Вывод:", result, goalCurrency)
 }
 func inputValue() (float64, error) {
@@ -86,8 +86,8 @@ func selectGoalCurrency(currency1, currency2 string) (string, error) {
 }
 
 
-func calculate(rates map[string]float64, value float64, currency, goalCurrency string) float64 {
-		return rates[currency + "_" + goalCurrency] * value
+func calculate(rates *map[string]float64, value float64, currency, goalCurrency string) float64 {
+		return (*rates)[currency + "_" + goalCurrency] * value
 
 //	switch {
 //	case currency == "RUB" && goalCurrency == "EUR":
