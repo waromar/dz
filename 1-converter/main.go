@@ -103,3 +103,4 @@ func calculate(value float64, currency, goalCurrency string) float64 {
 		return 0
 	}
 }
+
