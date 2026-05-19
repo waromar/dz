@@ -4,14 +4,15 @@ import (
 	"fmt"
 )
 
-const RUBinEUR float64 = USDinEUR / USDinRUB
-const EURinUSD float64 = 1 / USDinEUR
-const USDinEUR float64 = 0.8497
-const USDinRUB float64 = 75.22
-const EURinRUB float64 = USDinRUB / USDinEUR
-const RUBinUSD float64 = 1 / USDinRUB
+// const RUBinEUR float64 = USDinEUR / USDinRUB
+// const EURinUSD float64 = 1 / USDinEUR
+// const USDinEUR float64 = 0.8497
+// const USDinRUB float64 = 75.22
+// const EURinRUB float64 = USDinRUB / USDinEUR
+// const RUBinUSD float64 = 1 / USDinRUB
 
 func main() {
+	rates := map[string]float64{"RUB_EUR": 0.0113, "RUB_USD": 0.0133, "USD_RUB":75.22, "USD_EUR":0.8497, "EUR_RUB":0.0132943, "EUR_USD":1.17689}
 	// вызов функции ввода валюты
 	currency, err := inputCurrency()
 	if err != nil {
@@ -31,7 +32,7 @@ func main() {
 		goalCurrency, _ = inputGoalCurrency(currency)
 	}
 	// вызов функции для расчета
-	result := calculate(value,currency,goalCurrency)
+	result := calculate(&rates,value,currency,goalCurrency)
 	fmt.Println("Вывод:", result, goalCurrency)
 }
 func inputValue() (float64, error) {
@@ -85,21 +86,24 @@ func selectGoalCurrency(currency1, currency2 string) (string, error) {
 }
 
 
-func calculate(value float64, currency, goalCurrency string) float64 {
-	switch {
-	case currency == "RUB" && goalCurrency == "EUR":
-		return value * RUBinEUR
-	case currency == "RUB" && goalCurrency == "USD":
-		return value * RUBinUSD
-	case currency == "USD" && goalCurrency == "EUR":
-		return value * USDinEUR
-	case currency == "USD" && goalCurrency == "RUB":
-		return value * USDinRUB
-	case currency == "EUR" && goalCurrency == "USD":
-		return value * EURinUSD
-	case currency == "EUR" && goalCurrency == "RUB":
-		return value * EURinRUB
-	default:
-		return 0
-	}
+func calculate(rates *map[string]float64, value float64, currency, goalCurrency string) float64 {
+		return (*rates)[currency + "_" + goalCurrency] * value
+
+//	switch {
+//	case currency == "RUB" && goalCurrency == "EUR":
+//		return value * RUBinEUR
+//	case currency == "RUB" && goalCurrency == "USD":
+//		return value * RUBinUSD
+//	case currency == "USD" && goalCurrency == "EUR":
+//		return value * USDinEUR
+//	case currency == "USD" && goalCurrency == "RUB":
+//		return value * USDinRUB
+//	case currency == "EUR" && goalCurrency == "USD":
+//		return value * EURinUSD
+//	case currency == "EUR" && goalCurrency == "RUB":
+//		return value * EURinRUB
+//	default:
+//		return 0
+//	}
 }
+
