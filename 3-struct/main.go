@@ -1,14 +1,16 @@
 package main
 
 import (
-	"errors"
-	"fmt"
-	"time"
-	"demo/3-struct/bins"
+
+"demo/3-struct/bins"
+
 )
 
 
-func main() {
 
+
+func main() {
+bin1, _ := bins.InitBin("123", true, "penis")
+bins.InitBins([]bins.Bin{*bin1})
 }
 
