@@ -1,15 +1,14 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"time"
+	"demo/3-struct/bins"
 )
-type Bin struct {
-	ID string
-	Private bool
-	CreatedAt time.Time
-	Name string
-}
-func main(){
+
+
+func main() {
 
 }
+

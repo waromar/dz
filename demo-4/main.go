@@ -31,7 +31,6 @@ func promtData(promt string) (string) {
 		fmt.Println(promt)
 		var res string
 		fmt.Scanln(&res)
-		
 		return res
 }
 
