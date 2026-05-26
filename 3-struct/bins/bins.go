@@ -1,4 +1,10 @@
-package struct
+package bins
+
+import (
+	"errors"
+	"fmt"
+	"time"
+)
 
 
 type Bin struct {
