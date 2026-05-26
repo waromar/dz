@@ -8,10 +8,10 @@ import (
 
 
 type Bin struct {
-	ID        string
-	Private   bool
-	CreatedAt time.Time
-	Name      string
+	ID        string `json:"id"`
+	Private   bool `json:"private"`
+	CreatedAt time.Time `json:"time"`
+	Name      string `json:"name"`
 }
 
 type BinList struct {
@@ -25,9 +25,10 @@ func InitBin(id string, private bool, name string) (*Bin, error) {
 	if name == "" {
 		return &Bin{}, errors.New("Ошибка name")
 	}
-	if private == true {
+	switch private {
+case true:
 		fmt.Println("Bin локальный")
-	} else if private == false {
+	case false:
 		fmt.Println("Bin публичный")
 	}
 

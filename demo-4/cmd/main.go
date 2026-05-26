@@ -1,6 +1,7 @@
 package main
 
 import (
+	"demo-4/files"
 	"errors"
 	"fmt"
 	"math/rand"
@@ -13,7 +14,8 @@ type account struct {
 }
 var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-*!")
 func main() {
-	
+	files.ReadFile()
+	files.WriteFile("Привет я файл", "file.txt")
 	login := promtData("Введите логин")
 	password := promtData("Введите пароль")
 	url := promtData("Введите URL")
